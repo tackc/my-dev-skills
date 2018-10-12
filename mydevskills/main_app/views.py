@@ -13,15 +13,27 @@ from django.utils.decorators import method_decorator
 # Class-Based Views (CBVs)
 class SkillCreate(CreateView):
     model = Skill
-    fields = ['name', 'description', 'skilllevel']
-    template_name = 'skills/form.html'
+    fields = ['skill', 'description', 'skill_level']
+    
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/skills')
 
 class SkillDetailView(DetailView):
     model = Skill
-    template_name = 'skills/detail.html'
+    fields = '__all__'
+
+class SkillUpdate(UpdateView):
+    model = Skill
+    fields = '__all__'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/skills/' + str(self.object.pk))
 
 class SkillDelete(DeleteView):
     model = Skill
@@ -33,7 +45,7 @@ class SkillList(ListView):
         return self.request.user.skill_set.all()
 
 # Create your views here.
-def myskills(request):
+def skills(request):
     return render(request, 'skills/index.html')
 
 def addskill(request):

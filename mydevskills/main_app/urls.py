@@ -6,10 +6,13 @@ urlpatterns = [
     path('login/', views.login_view, name="login"),
     path('logout/', views.logout_view, name="logout"),
     path('signup/', views.signup, name='signup'),
-    path('user/<username>/', views.profile, name='profile'),
-    path('skills/', views.myskills, name='myskills'),
-    path('skills/detail/', views.skills_detail, name='skills_detail'),
-    path('skills/addskill/', views.SkillCreate.as_view, name='skills_create'),
-    path('skills/addskill/<int:pk>/', views.SkillDelete.as_view, name='skills_create'),
-    path('profile/', views.profile, name='profile'),
+    # skills paths
+    path('skills/', views.skills, name='skills'),
+    path('skills/<int:pk>/', views.skills_detail, name='skills_detail'),
+    path('skills/create/', views.SkillCreate.as_view(), name='skills_create'),
+    path('skills/<int:pk>/update', views.SkillUpdate.as_view(), name='skills_update'),
+    path('skills/<int:pk>/delete', views.SkillDelete.as_view(), name='skills_delete'),
+    
+    # path('user/<username>/', views.profile, name='profile'),
+    # path('profile/', views.profile, name='profile'),
 ]

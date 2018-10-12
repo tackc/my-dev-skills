@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Dev Skills</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    {% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% endblock css %}
 </head>
 <body>
     <header class="navbar-fixed">
@@ -21,10 +23,10 @@
                 <ul class="right">
                     {% if user.is_authenticated %}
                     <li> | </li>
-                    <li><a href="{% url 'profile' user.username %}">Hello, {{ user.username }}!</a></li>
+                    <li>Hello, {{ user.username }}!</li>
                     <li> | </li>
                     <li><a href="/skills">My Skills</a></li>
-                    <li><a href="/addskill">Add Skill</a></li>
+                    <li><a href="/skills/create">Add Skill</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li> | </li>
@@ -43,8 +45,22 @@
     <footer class="page-footer">
         <div class="container">© 2018 DevMaster</div>
     </footer>
-    <!-- <footer class="page-footer footer copyright">
-        <div class="right">© 2018 DevMaster &nbsp;</div>
-    </footer> -->
+    {% block javascript %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        var dateEl = document.getElementById('id_date');
+        M.Datepicker.init(dateEl, {
+            format: 'yyyy-mm-dd',
+            defaultDate: new Date(),
+            setDefaultDate: true,
+            autoClose: true
+        });
+        // add additional JS to initialize select below
+        var selectEl = document.querySelectorAll('select');
+        M.FormSelect.init(selectEl);
+    </script>
+    {% endblock javascript %}
 </body>
 </html>
