@@ -21,9 +21,6 @@ class SkillCreate(CreateView):
         self.object.save()
         return HttpResponseRedirect('/skills')
 
-class SkillDetailView(DetailView):
-    model = Skill
-    fields = '__all__'
 
 class SkillUpdate(UpdateView):
     model = Skill
@@ -45,8 +42,8 @@ class SkillList(ListView):
         return self.request.user.skill_set.all()
 
 # Create your views here.
-def skills(request):
-    return render(request, 'skills/index.html')
+# def skills(request):
+#     return render(request, 'skills/index.html')
 
 def addskill(request):
     return render(request, 'skills/form.html')

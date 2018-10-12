@@ -11,11 +11,11 @@ SKILLLEVEL = (
 )
 
 # Create your models here.
-class User(models.Model):
-    name = models.CharField(max_length=50)
+# class User(models.Model):
+#     name = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class Skill(models.Model):
     skill = models.CharField(max_length=40)
@@ -25,7 +25,7 @@ class Skill(models.Model):
         choices=SKILLLEVEL,
         default=SKILLLEVEL[0][0]
     )
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.skill

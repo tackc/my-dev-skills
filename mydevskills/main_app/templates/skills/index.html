@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         {% for skill in skill_list %}
-        <tr><td><a href="{% url 'skill_detail' skill.id %}">{{skill.description}}</a></td></tr>
+        <tr><td><a href="{% url 'skills_detail' skill.id %}">{{skill.description}}</a></td></tr>
         {% empty %}
         <tr><td>Enter some skills...I know you are skillful!</td></tr>
         {% endfor %}
