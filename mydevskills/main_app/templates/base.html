@@ -7,15 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Dev Skills</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <header>header</header>
+    <header class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <ul>
+                    <li><a href="/" class="left brand-logo">&nbsp;&nbsp;My Dev Skills</a></li>
+                </ul>
+                <ul class="right">
+                    {% if user.is_authenticated %}
+                    <li> | </li>
+                    <li><a href="{% url 'profile' user.username %}">Hello, {{ user.username }}!</a></li>
+                    <li> | </li>
+                    <li><a href="/myskills">My Skills</a></li>
+                    <li><a href="/addskill">Add Skill</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li> | </li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li> | </li>
+                    <li><a href="{% url 'signup' %}">SignUp</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    <footer>footer</footer>
+    <footer class="page-footer">
+        <div class="container">© 2018 DevMaster</div>
+    </footer>
+    <!-- <footer class="page-footer footer copyright">
+        <div class="right">© 2018 DevMaster &nbsp;</div>
+    </footer> -->
 </body>
 </html>
