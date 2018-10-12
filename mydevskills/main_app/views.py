@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import User, Skill, Note
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -13,16 +14,37 @@ from django.utils.decorators import method_decorator
 class SkillCreate(CreateView):
     model = Skill
     fields = ['name', 'description', 'skilllevel']
+    template_name = 'skills/form.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class SkillDetailView(DetailView):
+    model = Skill
+    template_name = 'skills/detail.html'
+
+class SkillList(ListView):
+    template_name = 'skills/index.html'
+    def get_queryset(self):
+        return self.request.user.skill_set.all()
 
 # Create your views here.
 def myskills(request):
-    return render(request, 'myskills.html')
+    return render(request, 'skills/index.html')
 
 def addskill(request):
-    return render(request, 'addskill.html')
+    return render(request, 'form.html')
 
 def index(request):
     return render(request, 'index.html')
+
+def skills_index(request):
+    skills = Skill.objects.all()
+    return render(request, skills/index.html, {'skills': skills})
+
+def skills_detail(request, skill_id):
+    skill = Skill.objects.get(id=skill_id)
+    return render(request, 'skills/detail.html', {'skill': skill})
 
 def login_view(request):
     if request.method == 'POST':
@@ -65,7 +87,7 @@ def signup(request):
 def profile(request, username):
     if username == request.user.username:
         user = User.objects.get(username=username)
-        skills = Skills.objects.filter(user=user)
+        skills = Skill.objects.filter(user=user)
         return render(request, 'profile.html', {'username': username, 'skills': skills})
     else:
         return HttpResponseRedirect('/')

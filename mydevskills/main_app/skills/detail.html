@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Skill Detail</h3>
+
+<table>
+    <thead>
+        <th>Description</th>
+        <th>Skill Level</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{skill.name}}</td>
+            <td>{{skill.description}}</td>
+            <td>{{skill.get_skill_level_display}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

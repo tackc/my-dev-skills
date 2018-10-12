@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from django.contrib.auth.models import User
 
 SKILLLEVEL = (
     ('1', 'Fundamental Awareness'),
@@ -26,6 +28,8 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('skill list')
 
 class Note(models.Model):
     content = models.CharField(max_length=500)

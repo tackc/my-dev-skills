@@ -7,7 +7,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name="logout"),
     path('signup/', views.signup, name='signup'),
     path('user/<username>/', views.profile, name='profile'),
-    path('user/myskills/', views.myskills, name='myskills'),
+    path('skills/index/', views.myskills, name='myskills'),
     path('user/addskill/', views.addskill, name='addskill'),
 ]
-
