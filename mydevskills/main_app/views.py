@@ -23,6 +23,10 @@ class SkillDetailView(DetailView):
     model = Skill
     template_name = 'skills/detail.html'
 
+class SkillDelete(DeleteView):
+    model = Skill
+    success_url = '/skills'
+
 class SkillList(ListView):
     template_name = 'skills/index.html'
     def get_queryset(self):
@@ -33,14 +37,14 @@ def myskills(request):
     return render(request, 'skills/index.html')
 
 def addskill(request):
-    return render(request, 'form.html')
+    return render(request, 'skills/form.html')
 
 def index(request):
     return render(request, 'index.html')
 
 def skills_index(request):
     skills = Skill.objects.all()
-    return render(request, skills/index.html, {'skills': skills})
+    return render(request, 'skills/index.html', {'skills': skills})
 
 def skills_detail(request, skill_id):
     skill = Skill.objects.get(id=skill_id)
